@@ -20,7 +20,8 @@ namespace Valve.VR.InteractionSystem.Sample
 
 		private float attachTime;
 
-		private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & ( ~Hand.AttachmentFlags.SnapOnAttach ) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
+        //private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & ( ~Hand.AttachmentFlags.SnapOnAttach ) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
+        public Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags;
 
         private Interactable interactable;
 
