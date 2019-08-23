@@ -16,16 +16,21 @@ namespace Valve.VR.InteractionSystem
         private float attachTime;
 
         private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers) & (~Hand.AttachmentFlags.VelocityMovement);
+        //private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags;
 
         private Interactable interactable;
+
+        // 마법구 이펙트 파티클
+        public GameObject magicEffect;
+        public GameObject magicCirclePrefab;
+        private GameObject magicCircle;
 
         //-------------------------------------------------
         void Awake()
         {
             interactable = this.GetComponent<Interactable>();
+            magicEffect.SetActive(false);
         }
-
-
         //-------------------------------------------------
         // Called when a Hand starts hovering over this object
         //-------------------------------------------------
@@ -47,26 +52,58 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         private void HandHoverUpdate(Hand hand)
         {
-            Debug.Log(hand.grabPinchAction.state);
+            Debug.Log("pos: " + transform.position + "for: " + transform.forward);
+            Debug.DrawLine(transform.position, transform.position + transform.forward, Color.blue);
+            Debug.DrawLine(transform.position, transform.up, Color.green);
+            Debug.DrawLine(transform.position, transform.right, Color.red);
             GrabTypes startingGrabType = hand.GetGrabStarting();
+            GrabTypes endingGrabType = hand.GetGrabEnding();
             bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
 
-            if (interactable.attachedToHand == null && startingGrabType != GrabTypes.None)
+            if (interactable.attachedToHand == null)
             {
-                // Call this to continue receiving HandHoverUpdate messages,
-                // and prevent the hand from hovering over anything else
-                hand.HoverLock(interactable);
-
-                // Attach this object to the hand
-                hand.AttachObject(gameObject, startingGrabType, attachmentFlags);
+                if (startingGrabType != GrabTypes.None)
+                {
+                    hand.HoverLock(interactable);
+                    hand.AttachObject(gameObject, startingGrabType, attachmentFlags);
+                }
             }
-            else if (isGrabEnding)
+            else
             {
-                // Detach this object from the hand
-                hand.DetachObject(gameObject);
-
-                // Call this to undo HoverLock
-                hand.HoverUnlock(interactable);
+                Debug.Log("tfdr = " + transform.TransformDirection(Vector3.forward));
+                RaycastHit hit;
+                if (startingGrabType == GrabTypes.Pinch)
+                {
+                    Debug.Log("Pinch ON");
+                    magicCircle = Instantiate(magicCirclePrefab, transform.TransformDirection(Vector3.forward), Quaternion.identity);
+                }
+                if (hand.IsGrabbingWithType(GrabTypes.Pinch))
+                {
+                    Debug.Log("PINCHING");
+                    // 마법 발동? 그리기
+                    magicEffect.SetActive(true);
+                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+                    {
+                        if(hit.transform.CompareTag("paint"))
+                        {
+                            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+                            //Debug.Log(hit.point);
+                        }
+                    }
+                }
+                if (endingGrabType == GrabTypes.Pinch)
+                {
+                    Debug.Log("Pinch OFF");
+                    magicEffect.SetActive(false);
+                    Destroy(magicCircle.gameObject);
+                }
+                if (startingGrabType == GrabTypes.Grip)
+                {
+                    // 내려놓기
+                    // 굳이 없어도 될듯?
+                    hand.DetachObject(gameObject);
+                    hand.HoverUnlock(interactable);
+                }
             }
         }
 
