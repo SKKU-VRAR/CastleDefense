@@ -13,8 +13,8 @@ namespace Valve.VR.InteractionSystem
 	[RequireComponent( typeof( Interactable ) )]
 	public class InteractableStaff : MonoBehaviour
     {
-        private TextMesh generalText;
-        private TextMesh hoveringText;
+        //private TextMesh generalText;
+        //private TextMesh hoveringText;
         private Vector3 oldPosition;
 		private Quaternion oldRotation;
 
@@ -86,7 +86,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnAttachedToHand( Hand hand )
         {
-            generalText.text = string.Format("Attached: {0}", hand.name);
+            //generalText.text = string.Format("Attached: {0}", hand.name);
             attachTime = Time.time;
 		}
         
@@ -97,7 +97,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void OnDetachedFromHand( Hand hand )
 		{
-            generalText.text = string.Format("Detached: {0}", hand.name);
+            //generalText.text = string.Format("Detached: {0}", hand.name);
 		}
 
 
@@ -106,7 +106,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void HandAttachedUpdate( Hand hand )
 		{
-            generalText.text = string.Format("Attached: {0} :: Time: {1:F2}", hand.name, (Time.time - attachTime));
+            //generalText.text = string.Format("Attached: {0} :: Time: {1:F2}", hand.name, (Time.time - attachTime));
 		}
 
         private bool lastHovering = false;
@@ -114,7 +114,7 @@ namespace Valve.VR.InteractionSystem
         {
             if (interactable.isHovering != lastHovering) //save on the .tostrings a bit
             {
-                hoveringText.text = string.Format("Hovering: {0}", interactable.isHovering);
+                //hoveringText.text = string.Format("Hovering: {0}", interactable.isHovering);
                 lastHovering = interactable.isHovering;
             }
         }
