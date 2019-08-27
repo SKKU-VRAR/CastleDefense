@@ -87,6 +87,7 @@ namespace Valve.VR.InteractionSystem
                 if (hand.IsGrabbingWithType(GrabTypes.Pinch))
                 {
                     // 마법 발동? 그리기
+                    // holy shit
                     magicEffect.SetActive(true);
                     
                     if (Physics.Raycast(transform.position, transform.up, out RaycastHit hit, Mathf.Infinity))
