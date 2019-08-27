@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6878075340357300091}
   - component: {fileID: 319709525687604396}
-  - component: {fileID: 7237757874556608690}
+  - component: {fileID: 2027399217819746508}
   m_Layer: 0
   m_Name: Trigger3
-  m_TagString: Untagged
+  m_TagString: paintTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3338943489757886280}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09515, y: 0.03, z: 0}
+  m_LocalPosition: {x: 0.09515, y: 0.03, z: 0.01}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 8425792886588538360}
@@ -81,22 +81,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7237757874556608690
-CircleCollider2D:
+--- !u!65 &2027399217819746508
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3338943489757886280}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.00000023841858}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3726644779774912531
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,10 +104,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6668980596121204985}
   - component: {fileID: 4278990485347990755}
-  - component: {fileID: 6850786693424990232}
+  - component: {fileID: 4974327716638204998}
   m_Layer: 0
   m_Name: Trigger1
-  m_TagString: Untagged
+  m_TagString: paintTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3726644779774912531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.01}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 8425792886588538360}
@@ -178,22 +175,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &6850786693424990232
-CircleCollider2D:
+--- !u!65 &4974327716638204998
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3726644779774912531}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.00000023841858}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5663138133111353977
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,10 +198,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2934630947358873830}
   - component: {fileID: 3370266756130531737}
-  - component: {fileID: 8796637263992041456}
+  - component: {fileID: 486622226577502426}
   m_Layer: 0
   m_Name: Trigger6
-  m_TagString: Untagged
+  m_TagString: paintTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,7 +214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5663138133111353977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.01}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 8425792886588538360}
@@ -275,22 +269,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8796637263992041456
-CircleCollider2D:
+--- !u!65 &486622226577502426
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5663138133111353977}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5780036065382775619
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,10 +292,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8996244705258890484}
   - component: {fileID: 6278278804451301579}
-  - component: {fileID: 2370398184947932731}
+  - component: {fileID: 9192250963301885312}
   m_Layer: 0
   m_Name: Trigger5
-  m_TagString: Untagged
+  m_TagString: paintTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -317,7 +308,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5780036065382775619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0594, y: -0.0804, z: 0}
+  m_LocalPosition: {x: 0.0594, y: -0.0804, z: 0.01}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 8425792886588538360}
@@ -372,22 +363,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2370398184947932731
-CircleCollider2D:
+--- !u!65 &9192250963301885312
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5780036065382775619}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.00000023841858}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8151032560691805206
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,10 +386,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7333621463677555687}
   - component: {fileID: 3491481993460235147}
-  - component: {fileID: 54535797158812304}
+  - component: {fileID: 2972554489720560032}
   m_Layer: 0
   m_Name: Trigger4
-  m_TagString: Untagged
+  m_TagString: paintTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -414,7 +402,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8151032560691805206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0594, y: -0.0804, z: 0}
+  m_LocalPosition: {x: -0.0594, y: -0.0804, z: 0.01}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 8425792886588538360}
@@ -469,22 +457,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &54535797158812304
-CircleCollider2D:
+--- !u!65 &2972554489720560032
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8151032560691805206}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.00000023841858}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8425792886588538359
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,10 +480,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8425792886588538360}
   - component: {fileID: 8425792886588538361}
-  - component: {fileID: 8425792886588538358}
+  - component: {fileID: 5764353762208565348}
   m_Layer: 0
   m_Name: Magic Circle
-  m_TagString: Untagged
+  m_TagString: paint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -572,22 +557,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &8425792886588538358
-CircleCollider2D:
+--- !u!65 &5764353762208565348
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8425792886588538359}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.22, y: 0.22, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8566409308489122746
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,10 +580,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5860161476585695978}
   - component: {fileID: 8878375757142465209}
-  - component: {fileID: 7547464312805399498}
+  - component: {fileID: 279557640208740197}
   m_Layer: 0
   m_Name: Trigger2
-  m_TagString: Untagged
+  m_TagString: paintTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -614,7 +596,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8566409308489122746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09515, y: 0.03, z: 0}
+  m_LocalPosition: {x: -0.09515, y: 0.03, z: 0.01}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 8425792886588538360}
@@ -669,19 +651,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &7547464312805399498
-CircleCollider2D:
+--- !u!65 &279557640208740197
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8566409308489122746}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.00000023841858}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.2, y: 0.2, z: 0.001}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -23,13 +23,21 @@ namespace Valve.VR.InteractionSystem
         // 마법구 이펙트 파티클
         public GameObject magicEffect;
         public GameObject magicCirclePrefab;
+        public GameObject pointPrefab;
+        public LineRenderer line;
+
         private GameObject magicCircle;
+        private GameObject point;
+        
+        private bool isPointTrigger = false;
+        
 
         //-------------------------------------------------
         void Awake()
         {
             interactable = this.GetComponent<Interactable>();
             magicEffect.SetActive(false);
+            line.positionCount = 0;
         }
         //-------------------------------------------------
         // Called when a Hand starts hovering over this object
@@ -52,10 +60,9 @@ namespace Valve.VR.InteractionSystem
         //-------------------------------------------------
         private void HandHoverUpdate(Hand hand)
         {
-            Debug.Log("pos: " + transform.position + "for: " + transform.forward);
-            Debug.DrawLine(transform.position, transform.position + transform.forward, Color.blue);
-            Debug.DrawLine(transform.position, transform.up, Color.green);
-            Debug.DrawLine(transform.position, transform.right, Color.red);
+            //Debug.DrawLine(transform.position, transform.position + transform.forward, Color.blue);
+            //Debug.DrawLine(transform.position, transform.position + transform.up, Color.green);
+            //Debug.DrawLine(transform.position, transform.position + transform.right, Color.red);
             GrabTypes startingGrabType = hand.GetGrabStarting();
             GrabTypes endingGrabType = hand.GetGrabEnding();
             bool isGrabEnding = hand.IsGrabEnding(this.gameObject);
@@ -70,32 +77,45 @@ namespace Valve.VR.InteractionSystem
             }
             else
             {
-                Debug.Log("tfdr = " + transform.TransformDirection(Vector3.forward));
-                RaycastHit hit;
                 if (startingGrabType == GrabTypes.Pinch)
                 {
-                    Debug.Log("Pinch ON");
-                    magicCircle = Instantiate(magicCirclePrefab, transform.TransformDirection(Vector3.forward), Quaternion.identity);
+                    magicCircle = Instantiate(magicCirclePrefab, transform.position + transform.up * 3, Quaternion.identity);
+                    magicCircle.transform.LookAt(transform.position);
+
+                    point = Instantiate(pointPrefab, magicCircle.transform.position, Quaternion.identity);
                 }
                 if (hand.IsGrabbingWithType(GrabTypes.Pinch))
                 {
-                    Debug.Log("PINCHING");
                     // 마법 발동? 그리기
                     magicEffect.SetActive(true);
-                    if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+                    
+                    if (Physics.Raycast(transform.position, transform.up, out RaycastHit hit, Mathf.Infinity))
                     {
-                        if(hit.transform.CompareTag("paint"))
+                        Debug.Log(hit.transform.name);
+                        if (hit.transform.CompareTag("paint") || hit.transform.CompareTag("paintTrigger"))
                         {
-                            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
-                            //Debug.Log(hit.point);
+                            point.transform.position = hit.point;
+                            if (hit.transform.CompareTag("paintTrigger") && !isPointTrigger)
+                            {
+                                isPointTrigger = true;
+                                hand.hapticAction.Execute(0, 0.1f, 1, 30, hand.handType);
+                                line.positionCount++;
+                                line.SetPosition(line.positionCount - 1, hit.transform.position + hit.transform.forward * 0.1f);
+                            }
+                            else if (hit.transform.CompareTag("paint") && isPointTrigger)
+                            {
+                                isPointTrigger = false;
+                            }
                         }
                     }
+
                 }
                 if (endingGrabType == GrabTypes.Pinch)
                 {
-                    Debug.Log("Pinch OFF");
                     magicEffect.SetActive(false);
                     Destroy(magicCircle.gameObject);
+                    Destroy(point.gameObject);
+                    line.positionCount = 0;
                 }
                 if (startingGrabType == GrabTypes.Grip)
                 {
