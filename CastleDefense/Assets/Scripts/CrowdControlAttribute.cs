@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SampleScript : MonoBehaviour
+public class CrowdControlAttribute : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        // new code from huntae324
+        
     }
 
     // Update is called once per frame
