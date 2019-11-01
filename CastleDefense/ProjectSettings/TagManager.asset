@@ -8,6 +8,7 @@ TagManager:
   - FxTemporaire
   - paint
   - paintTrigger
+  - Ground
   layers:
   - Default
   - TransparentFX
