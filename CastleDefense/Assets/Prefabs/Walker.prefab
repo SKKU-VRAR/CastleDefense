@@ -106,7 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328f74e23ff0a6e4e8c33aba8aa1bb8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castle: {fileID: 4184231916228864352, guid: e84c73a20fe805f42b963367f9ca88bf, type: 3}
+  castles: []
+  nearestCastle: {fileID: 0}
 --- !u!54 &-5760657809094524622
 Rigidbody:
   m_ObjectHideFlags: 0

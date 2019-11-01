@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Castle : MonoBehaviour
 {
-    public float hp = 100f;
+    private float hp = 100f;
+
+    public float Hp { get => hp; set => hp = value; }
 
     void Update()
     {

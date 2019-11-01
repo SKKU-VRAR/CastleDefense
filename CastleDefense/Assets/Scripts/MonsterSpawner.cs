@@ -15,7 +15,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(mon_walker, transform.position + new Vector3(0, 1, 0), Quaternion.Euler(0, 90, 0));
+            Instantiate(mon_walker, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
             yield return new WaitForSeconds(interval);
         }
     }

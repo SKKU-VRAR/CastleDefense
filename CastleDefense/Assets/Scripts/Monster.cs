@@ -21,9 +21,12 @@ public abstract class Monster : MonoBehaviour
     private float attackRange;
     // 몬스터의 공격 속도
     private float attackSpeed;
+    private bool isAttacking;
 
     // 몬스터가 공격할 castle을 받아오는 변수
-    public Castle castle;
+    public List<GameObject> castles = new List<GameObject>();
+    // 몬스터와 가장 가까운 castle을 받아오는 변수
+    public GameObject nearestCastle = null;
     // 몬스터의 상태이상을 관리하는 List
     private List<CrowdControl> ccs = new List<CrowdControl>();
 
@@ -35,11 +38,38 @@ public abstract class Monster : MonoBehaviour
     public float AttackRange { get => attackRange; set => attackRange = value; }
     public float CurSpeed { get => curspeed; set => curspeed = value; }
     public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
 
+    private void MakeCastleList()
+    {
+        RaycastHit[] hits;
+        hits = Physics.SphereCastAll(transform.position, 100, Vector3.up, 0);
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.transform.CompareTag("Castle"))
+                castles.Add(hit.transform.gameObject);
+        }
+    }
+    private void FindNearestWall()
+    {
+        float distance = Mathf.Infinity;
+        foreach (GameObject c in castles)
+        {
+            Vector3 diff = c.transform.position - transform.position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                nearestCastle = c;
+                distance = curDistance;
+            }
+        }
+        Debug.Log(nearestCastle.name);
+    }
     // 몬스터가 공격 사정거리 안에 들어오면 true 리턴, 아니면 false 리턴
     public bool CheckRange()
     {
-        if ((castle.transform.position - transform.position).magnitude <= AttackRange)
+        //Debug.Log("Distance from" + nearestCastle.name + ": " + Vector3.Distance(nearestCastle.transform.position, transform.position) + ", Attackrange: " + AttackRange);
+        if (Vector3.Distance(nearestCastle.transform.position, transform.position) <= AttackRange)
         {
             return true;
         }
@@ -83,15 +113,18 @@ public abstract class Monster : MonoBehaviour
         yield return null;
         ccs.Remove(cc);
     }
-
+    
     public void Start()
     {
-        // 매 프레임마다 상태이상 시간 체크
+        MakeCastleList();
+        // 매 초마다 상태이상 시간 체크
         StartCoroutine(CheckCrowdControl());
     }
 
     public void Update()
     {
+        MakeCastleList();
+        FindNearestWall();
         // 몬스터의 피가 0 이하로 떨어지면 죽음
         if (Hp <= 0)
         {
