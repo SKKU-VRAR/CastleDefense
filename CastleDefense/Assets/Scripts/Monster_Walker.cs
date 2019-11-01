@@ -13,11 +13,26 @@ public class Monster_Walker : Monster
         CurSpeed = Speed = 10f;
         Damage = 1f;
         AttackRange = 2f;
+        AttackSpeed = 1f;
+        StartCoroutine(Attack(AttackSpeed));
     }
     
     public void Update()
     {
         base.Update();
-        transform.Translate(transform.forward * CurSpeed * Time.deltaTime);
+        if (!CheckRange())
+            transform.Translate(transform.forward * CurSpeed * Time.deltaTime);
+    }
+
+    public override IEnumerator Attack(float interval)
+    {
+        while (true)
+        {
+            if (CheckRange())
+            {
+                yield return new WaitForSeconds(interval);
+                castle.hp -= Damage;
+            }
+        }
     }
 }

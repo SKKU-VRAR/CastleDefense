@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 모든 몬스터의 부모 클래스
-public class Monster : MonoBehaviour
+public abstract class Monster : MonoBehaviour
 {
     // 몬스터 원소 타입을 위한 enum
     public enum ElementType { None, Fire, Water, Earth, Air };
@@ -19,10 +19,11 @@ public class Monster : MonoBehaviour
     private float damage;
     // 몬스터의 공격 사정거리
     private float attackRange;
-    // 생각나는대로 추가
+    // 몬스터의 공격 속도
+    private float attackSpeed;
 
     // 몬스터가 공격할 castle을 받아오는 변수
-    public GameObject castle;
+    public Castle castle;
     // 몬스터의 상태이상을 관리하는 List
     private List<CrowdControl> ccs = new List<CrowdControl>();
 
@@ -33,12 +34,21 @@ public class Monster : MonoBehaviour
     public float Damage { get => damage; set => damage = value; }
     public float AttackRange { get => attackRange; set => attackRange = value; }
     public float CurSpeed { get => curspeed; set => curspeed = value; }
+    public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
 
     // 몬스터가 공격 사정거리 안에 들어오면 true 리턴, 아니면 false 리턴
-    public bool checkRange()
+    public bool CheckRange()
     {
-        return true;
+        if ((castle.transform.position - transform.position).magnitude <= AttackRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
+    public abstract IEnumerator Attack(float interval);
 
     // 몬스터에게 상태이상을 부여하는 함수
     // 각 마법 스크립트에서 마법이 몬스터에게 맞았을 때 이 함수를 호출해주면 됨
@@ -74,32 +84,15 @@ public class Monster : MonoBehaviour
         ccs.Remove(cc);
     }
 
-    /*public void ApplyCrowdControl(float elapsedTime)
-    {
-        // 상태이상 리스트의 모든 상태이상에 대하여
-        foreach(CrowdControl cc in ccs)
-        {
-            // 해당 상태 이상의 지속 효과 발동
-            cc.PersistingEffect(this);
-            // 해당 상태 이상의 지속 시간을 감소시킴
-            cc.Time -= elapsedTime;
-            // 지속 시간이 끝나면 상태이상을 끝내고 리스트에서 지움으로써 상태이상을 없앰
-            if (cc.Time <= 0)
-            {
-                cc.FinalEffect(this);
-                ccs.Remove(cc);
-            }
-        }
-    }*/
-
     public void Start()
     {
-        // 매 프레임마다 상태이상 효과 적용
+        // 매 프레임마다 상태이상 시간 체크
         StartCoroutine(CheckCrowdControl());
     }
 
     public void Update()
     {
+        // 몬스터의 피가 0 이하로 떨어지면 죽음
         if (Hp <= 0)
         {
             Destroy(gameObject);
