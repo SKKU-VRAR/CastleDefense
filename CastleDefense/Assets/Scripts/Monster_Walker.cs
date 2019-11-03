@@ -5,6 +5,7 @@ using UnityEngine;
 // 뚜벅이 몬스터
 public class Monster_Walker : Monster
 {
+    // 코루틴 Start, Stop을 하기 위한 변수
     private IEnumerator coroutine;
 
     public void Start()
@@ -12,11 +13,13 @@ public class Monster_Walker : Monster
         base.Start();
         // Start 함수에서 몬스터의 spec 초기화
         Hp = 100f;
-        CurSpeed = Speed = 10f;
+        Speed = 5f;
         Damage = 1f;
-        AttackRange = 10f;
+        AttackRange = 5f;
         AttackSpeed = 1f;
 
+        Agent.stoppingDistance = AttackRange;
+        Agent.speed = Speed;
         coroutine = Attack(AttackSpeed);
     }
     
@@ -30,8 +33,6 @@ public class Monster_Walker : Monster
                 IsAttacking = false;
                 StopCoroutine(coroutine);
             }
-            Vector3 target = new Vector3(nearestCastle.transform.position.x, 0, nearestCastle.transform.position.z);
-            transform.Translate((target - transform.position).normalized * CurSpeed * Time.deltaTime);
         }
         else
         {
@@ -48,8 +49,8 @@ public class Monster_Walker : Monster
         while (true)
         {
             yield return new WaitForSeconds(interval);
-            Debug.Log("Attack to " + nearestCastle.name + "!");
-            nearestCastle.GetComponent<Castle>().Hp -= Damage;
+            Debug.Log("Attack to " + NearestCastle.name + "!");
+            NearestCastle.GetComponent<Entity>().Hp -= Damage;
         }
     }
 }

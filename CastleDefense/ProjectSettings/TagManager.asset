@@ -9,6 +9,7 @@ TagManager:
   - paint
   - paintTrigger
   - Castle
+  - Monster
   layers:
   - Default
   - TransparentFX

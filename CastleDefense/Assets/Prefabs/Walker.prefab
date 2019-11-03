@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 1014791863895315369}
   - component: {fileID: 4836057198167807722}
   - component: {fileID: -5760657809094524622}
+  - component: {fileID: 6338854495331903023}
   m_Layer: 0
   m_Name: Walker
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,8 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328f74e23ff0a6e4e8c33aba8aa1bb8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castles: []
-  nearestCastle: {fileID: 0}
 --- !u!54 &-5760657809094524622
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -120,7 +119,29 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!195 &6338854495331903023
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8185779374560289987}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 100
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
