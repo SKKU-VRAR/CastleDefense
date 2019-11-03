@@ -34,7 +34,7 @@ public class TidalWave : Magic
         if (collider.TryGetComponent(out Monster mon))
         {
             // 몬스터에게 상태이상 - 에어본을 추가함
-            mon.AddCrowdControl(new CC_Airborn());
+            mon.AddCrowdControl(new CC_Airborne());
             // 몬스터에게 데미지만큼의 피해를 입힘
             mon.Hp -= Damage;
         }
