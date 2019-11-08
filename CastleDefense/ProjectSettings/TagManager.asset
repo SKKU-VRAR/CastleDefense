@@ -8,6 +8,8 @@ TagManager:
   - FxTemporaire
   - paint
   - paintTrigger
+  - Castle
+  - Monster
   layers:
   - Default
   - TransparentFX
