@@ -9,6 +9,7 @@ public class TestPlayer : MonoBehaviour
     public GameObject magic;
     public GameObject intersect_point;
 
+
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -25,7 +26,8 @@ public class TestPlayer : MonoBehaviour
             // Instantiate(마법 prefab, 마법 prefab 소환할 좌표, 마법 prefab의 회전값 설정)
             // 이건 해일을 위한 Instantiate
             
-            Instantiate(magic, intersect_point.transform.position, Quaternion.identity);
+            Instantiate(magic, intersect_point.transform.position-new Vector3(0,12,0), Quaternion.identity);
         }
     }
+    
 }
