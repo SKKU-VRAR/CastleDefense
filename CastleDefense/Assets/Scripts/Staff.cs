@@ -6,6 +6,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Valve.VR.InteractionSystem
 {
@@ -24,20 +25,32 @@ namespace Valve.VR.InteractionSystem
         public GameObject magicEffect;
         public GameObject magicCirclePrefab;
         public GameObject pointPrefab;
-        public LineRenderer line;
+        public GameObject linePrefab;
 
         private GameObject magicCircle;
         private GameObject point;
-        
+
+        private Transform prevPoint;
+
         private bool isPointTrigger = false;
-        
+
+        private Coroutine runeRotate;
+        private Color color = Color.white;
+        private List<int> points;
+
+        private Color colorUtil = new Color(0.5f, 1, 0.5f);
+        private Color colorAir = new Color(0.5f, 0.75f, 1);
+        private Color colorFire = new Color(1, 0.25f, 0);
+        private Color colorEarth = new Color(0.75f, 0.5f, 0);
+        private Color colorWater = new Color(0f, 0.5f, 1);
+
 
         //-------------------------------------------------
         void Awake()
         {
             interactable = this.GetComponent<Interactable>();
             magicEffect.SetActive(false);
-            line.positionCount = 0;
+            points = new List<int>();
         }
         //-------------------------------------------------
         // Called when a Hand starts hovering over this object
@@ -81,6 +94,7 @@ namespace Valve.VR.InteractionSystem
                 {
                     magicCircle = Instantiate(magicCirclePrefab, transform.position + transform.up * 3, Quaternion.identity);
                     magicCircle.transform.LookAt(transform.position);
+                    runeRotate = StartCoroutine(RotateRunes(magicCircle.transform.GetChild(7)));
 
                     point = Instantiate(pointPrefab, magicCircle.transform.position, Quaternion.identity);
                 }
@@ -89,7 +103,7 @@ namespace Valve.VR.InteractionSystem
                     // 마법 발동? 그리기
                     // holy 12365416851651561651456561561shit
                     magicEffect.SetActive(true);
-                    
+
                     if (Physics.Raycast(transform.position, transform.up, out RaycastHit hit, Mathf.Infinity))
                     {
                         Debug.Log(hit.transform.name);
@@ -100,8 +114,50 @@ namespace Valve.VR.InteractionSystem
                             {
                                 isPointTrigger = true;
                                 hand.hapticAction.Execute(0, 0.1f, 1, 30, hand.handType);
-                                line.positionCount++;
-                                line.SetPosition(line.positionCount - 1, hit.transform.position + hit.transform.forward * 0.1f);
+                                if (prevPoint != null)
+                                {
+                                    if (prevPoint.position != hit.transform.position)
+                                    {
+                                        points.Add(int.Parse(hit.transform.gameObject.name.Substring(7)));
+                                        if (points.Count == 1)
+                                        {
+                                            switch (points[0])
+                                            {
+                                                case 1:
+                                                    color = colorUtil;
+                                                    break;
+                                                case 2:
+                                                    color = colorAir;
+                                                    break;
+                                                case 3:
+                                                    color = colorFire;
+                                                    break;
+                                                case 4:
+                                                    color = colorEarth;
+                                                    break;
+                                                case 5:
+                                                    color = colorWater;
+                                                    break;
+                                            }
+                                            foreach (SpriteRenderer sr in magicCircle.GetComponentsInChildren<SpriteRenderer>())
+                                            {
+                                                sr.color = color;
+                                            }
+                                        }
+                                        GameObject newline = Instantiate(linePrefab);
+                                        newline.transform.parent = magicCircle.transform.GetChild(8);
+                                        newline.transform.localPosition = (prevPoint.localPosition + hit.transform.localPosition) / 2;
+                                        Debug.Log((prevPoint.localPosition + hit.transform.localPosition) / 2);
+
+                                        Vector3 diff = prevPoint.transform.localPosition - hit.transform.localPosition;
+                                        newline.transform.localScale = Vector3.right * diff.magnitude * 0.2f + Vector3.up * 0.015f;
+                                        newline.transform.localRotation = Quaternion.FromToRotation(Vector3.right, diff);
+
+                                        newline.GetComponent<SpriteRenderer>().color = color;
+                                    }
+                                }
+
+                                prevPoint = hit.transform;
                             }
                             else if (hit.transform.CompareTag("paint") && isPointTrigger)
                             {
@@ -114,9 +170,10 @@ namespace Valve.VR.InteractionSystem
                 if (endingGrabType == GrabTypes.Pinch)
                 {
                     magicEffect.SetActive(false);
+                    if (runeRotate != null) StopCoroutine(runeRotate);
                     Destroy(magicCircle.gameObject);
                     Destroy(point.gameObject);
-                    line.positionCount = 0;
+                    points = new List<int>();
                 }
                 if (startingGrabType == GrabTypes.Grip)
                 {
@@ -125,6 +182,17 @@ namespace Valve.VR.InteractionSystem
                     hand.DetachObject(gameObject);
                     hand.HoverUnlock(interactable);
                 }
+            }
+        }
+
+        IEnumerator RotateRunes(Transform t)
+        {
+            Vector3 rot = Vector3.zero;
+            while (true)
+            {
+                yield return null;
+                rot.z += Time.deltaTime * 30;
+                t.transform.localRotation = Quaternion.Euler(rot);
             }
         }
 
