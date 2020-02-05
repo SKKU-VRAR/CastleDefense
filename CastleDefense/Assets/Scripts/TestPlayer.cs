@@ -13,6 +13,8 @@ public class TestPlayer : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             // Instantiate(마법 prefab, 마법 prefab 소환할 좌표, 마법 prefab의 회전값 설정)
             // 이건 해일을 위한 Instantiate
-            Instantiate(magic, new Vector3(0, 4.5f, -40f), Quaternion.identity);
+            // Instantiate(magic, new Vector3(0, 4.5f, -40f), Quaternion.identity);
+            // 불덩이를 위한 시작점
+            Instantiate(magic, new Vector3(0, 30f, -15f), Quaternion.identity);
     }
 }
